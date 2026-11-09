@@ -66,9 +66,8 @@ import importlib.util
 from pathlib import Path
 import subprocess
 import sys
-from PIL import ImageFont
-
 try:
+    from PIL import ImageFont
     if sys.version_info[:2] not in [(3, 11), (3, 12)]:
         raise ValueError('Python 3.11 or 3.12 is required')
     expected = Path('requirements.txt').read_text().strip().split('==')[1]
@@ -89,7 +88,7 @@ try:
         if missing:
             raise ValueError(f'FFmpeg lacks {sorted(missing)}')
     print(f'ARTMATH_ENV_OK: Python {sys.version.split()[0]}, Pillow {expected}, FFmpeg/FFprobe, Thai font: {font}')
-except (OSError, ValueError, subprocess.CalledProcessError) as exc:
+except (ImportError, OSError, ValueError, subprocess.CalledProcessError) as exc:
     print(f'Environment check failed: {exc}', file=sys.stderr)
     sys.exit(2)
 PY
