@@ -4,7 +4,7 @@
 
 Repository ปลายทางคือ [mrkanchanawat-cmyk/artmath-cloud](https://github.com/mrkanchanawat-cmyk/artmath-cloud) ดู [คู่มือเริ่มงาน](../START_MOBILE_TH.md) และ [สถานะ/วิธีนำ Git bundle เข้า repository](SOURCE_AND_STATUS_TH.md) หากเริ่มจากชุดส่งต่อใน Drive ให้ตรวจ branch และ commit เทียบ GitHub ก่อนใช้
 
-ขณะตรวจล่าสุด repository เป็น Public และยังว่าง การ push ถูกปฏิเสธเพราะบัญชีที่เชื่อมอยู่ไม่มีสิทธิ์ Write ดู [สถานะและวิธีแก้สิทธิ์](SOURCE_AND_STATUS_TH.md) แล้วให้ผู้ช่วยส่ง branch งานขึ้นก่อนเริ่มขั้นตอนด้านล่าง
+Repository เป็น Public และมี `main` แล้ว ให้ตรวจว่า branch `feat/mobile-cloud-foundation` พร้อมใช้งานก่อนเลือก ระหว่างรอ PR merge ใช้ branch งานนี้ หลัง merge จึงใช้ `main` ดู [สถานะการย้าย](SOURCE_AND_STATUS_TH.md) ประกอบ
 
 ## เริ่มครั้งแรก
 

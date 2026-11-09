@@ -10,15 +10,13 @@
 
 ## สิ่งที่ยังต้องเชื่อมต่อ
 
-ผู้ใช้สร้าง repository ปลายทางและส่ง URL แล้ว ตรวจพบว่า repository เป็น **Public และยังว่าง** การสร้างผ่าน API ที่เคยได้รับ Forbidden เป็นข้อจำกัดในขั้นก่อนหน้า ไม่ต้องสร้าง repository ซ้ำ
+เชื่อม GitHub ด้วยบัญชีเจ้าของ `mrkanchanawat-cmyk` แล้ว และ push `main` สำเร็จ Repository เป็น **Public** ชุดโค้ดที่จะส่งไม่มีสื่อส่วนตัวหรือ credentials
 
-การ push `main` ได้รับ **403: permission denied to kissxsis57100-cpu** บัญชีที่เชื่อมอยู่มี `push=false` จึงยังไม่มี remote branch หรือ PR ใหม่ ชุด `main` และ `feat/mobile-cloud-foundation` พร้อมอยู่ใน Git bundle/พื้นที่ทำงานเท่านั้น
-
-เพื่อดำเนินการต่อ ให้เชื่อม GitHub ของ Codex ด้วยบัญชีเจ้าของ `mrkanchanawat-cmyk` หรือให้สิทธิ์ Write แก่ `kissxsis57100-cpu` และตรวจว่า GitHub App เข้าถึง repository นี้ได้ จากนั้นตรวจสิทธิ์อีกครั้งก่อน push ไม่มีสื่อส่วนตัวหรือ credentials รวมอยู่ในชุดที่จะส่งขึ้น repository Public นี้
+`main` เป็นฐานเริ่มต้น ส่วน `feat/mobile-cloud-foundation` รวมระบบและคู่มือสำหรับ PR เข้า `main` ตรวจ branch และสถานะ PR บน GitHub ก่อนเลือกใช้งาน ไม่ถือว่า `main` มีระบบครบจนกว่า PR จะ merge
 
 พบ saved cloud environment ชื่อ maththewhat-hub1 อยู่ในบัญชี แต่ยังไม่ได้เปลี่ยนให้ใช้ repository ใหม่นี้ และยังไม่ได้ทดสอบเริ่ม task ใหม่บน environment นั้น การทดสอบ setup/demo ใน session นี้ไม่ใช่หลักฐานว่า environment ที่บันทึกไว้อัปเดตแล้ว
 
-ขั้นต่อไป: ให้การเชื่อม GitHub ของ Codex เข้าถึง repository นี้ ส่ง `main` และ branch งานขึ้น GitHub แล้วเปิด PR เข้า `main` จากนั้นเพิ่มหรือเปลี่ยน repository ใน cloud environment เป็น `mrkanchanawat-cmyk/artmath-cloud` ระหว่างรอ merge เลือก `feat/mobile-cloud-foundation`; หลัง merge ใช้ `main` แล้วทดสอบเริ่ม task จากมือถือด้วย setup --check และ --smoke-test
+ขั้นเปิดใช้งาน: ตรวจ branch งานและ PR แล้วเพิ่มหรือเปลี่ยน repository ใน cloud environment เป็น `mrkanchanawat-cmyk/artmath-cloud` ระหว่างรอ merge เลือก `feat/mobile-cloud-foundation`; หลัง merge ใช้ `main` จากนั้นทดสอบเริ่ม task จากมือถือด้วย `setup_cloud.sh --check` และ `setup_cloud.sh --smoke-test`
 
 ## การใช้ GitHub และชุด Git สำรองบนเครื่องคลาวด์
 

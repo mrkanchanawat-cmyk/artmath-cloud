@@ -9,6 +9,6 @@
 - bash -n และ git diff --check: ผ่าน
 - ตรวจรับก่อนหน้าใน baseline: ทดสอบ Python 3.11/3.12 และเปิดดูซับไทยกับข้อความอังกฤษบนวิดีโอจำลองแล้ว
 
-ยังไม่ได้เริ่ม task ใหม่ใน saved cloud environment ของผู้ใช้ และยังไม่มี CI run ของ repository ใหม่ เพราะบัญชี GitHub ที่เชื่อมยังไม่มีสิทธิ์ push เข้า repository ใหม่ Workflow ที่แนบจะทดสอบ setup ซ้ำ/--check/--smoke-test และชุดทดสอบบน Python 3.11/3.12 หลัง push
+ผลด้านบนเป็นการตรวจใน execution workspace ยังไม่ได้เริ่ม task ใหม่ใน saved cloud environment ของผู้ใช้ ให้ตรวจผล GitHub Actions ของ commit/PR ล่าสุดแยกต่างหาก Workflow ที่แนบทดสอบ setup ซ้ำ/--check/--smoke-test และชุดทดสอบบน Python 3.11/3.12 หลัง push
 
 ไม่มีการสร้างเสียงบุคคลจริง ผลิตตอนใหม่ หรือเผยแพร่คลิปในการตรวจนี้
