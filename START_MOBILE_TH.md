@@ -1,15 +1,19 @@
 # เริ่ม ArtMath จากมือถือ
 
-ชุดนี้เตรียมโค้ดและคำสั่งสำหรับ Codex Cloud แล้ว แต่ยังไม่ได้สร้าง repository ใหม่บน GitHub เพราะคำสั่งสร้างได้รับ Forbidden
+Repository ปลายทางคือ [mrkanchanawat-cmyk/artmath-cloud](https://github.com/mrkanchanawat-cmyk/artmath-cloud) ใช้ GitHub เป็นแหล่งโค้ดและคำสั่งหลัก ส่วนวัตถุดิบและผลลัพธ์ตอนจริงเก็บใน Drive
 
-1. สร้าง repository ว่างแบบ Private ชื่อ `artmath-cloud` ที่ https://github.com/new โดยไม่เพิ่ม README แล้วให้การเชื่อม GitHub ของ Codex เข้าถึง repo นี้
-2. ส่ง URL repository ให้ผู้ช่วย push `main` และ `feat/mobile-cloud-foundation` จาก Git bundle ที่แนบ แล้วเปิด PR เข้า main
-3. ในการตั้งค่า environment คลาวด์ เพิ่ม repository ใหม่นี้ เลือก branch งานระหว่างรอ PR merge แล้วติดตั้งด้วย `bash scripts/setup_cloud.sh`
-4. ทดสอบ `bash scripts/setup_cloud.sh --smoke-test` และตรวจไฟล์ผลลัพธ์ก่อนนำสื่อจริงเข้า
-5. ใช้ `AGENTS.md` เป็นคำสั่งหลัก และ `docs/MOBILE_WORKFLOW_TH.md` เป็นคู่มือประจำ
+สถานะล่าสุด: repository นี้เป็น Public และยังว่าง การ push ได้รับ 403 เพราะบัญชี GitHub ที่เชื่อมอยู่ `kissxsis57100-cpu` ไม่มีสิทธิ์ Write จึงยังไม่มี branch หรือ PR บนปลายทาง
+
+1. เชื่อม GitHub ของ Codex ด้วยบัญชีเจ้าของ `mrkanchanawat-cmyk` หรือให้สิทธิ์ Write แก่บัญชีที่เชื่อมอยู่ `kissxsis57100-cpu` พร้อมให้ GitHub App ของ Codex เข้าถึง repository นี้ จากนั้นส่ง main/branch ที่เตรียมไว้และเปิด PR แล้วเพิ่ม repository ใน environment คลาวด์ หากใช้ environment เดิม `maththewhat-hub1` ต้องเปลี่ยนหรือเพิ่ม repository นี้อย่างชัดเจน ไม่ถือว่า repository จะตามมาจากแชตเดิม
+2. ตรวจว่า remote มี branch `feat/mobile-cloud-foundation` ซึ่งรวม `AGENTS.md` และระบบ ArtMath ระหว่างรอ PR merge ให้เลือก branch นี้ เมื่อ PR merge แล้วจึงใช้ `main` พร้อมตรวจ branch/commit ทุกงาน
+3. จากโฟลเดอร์ repository ในเครื่องคลาวด์ รัน `bash scripts/setup_cloud.sh` แล้ว `bash scripts/setup_cloud.sh --smoke-test` ตรวจผลลัพธ์ก่อนนำสื่อจริงเข้า
+4. บันทึก/publish การตั้งค่า environment ตามหน้าจอที่บัญชีรองรับ แล้วเริ่ม task ใหม่จากมือถือโดยเลือก environment นี้ รัน `bash scripts/setup_cloud.sh --check` เพื่อยืนยันความพร้อม
+5. ใช้ `AGENTS.md` เป็นคำสั่งหลัก และ `docs/MOBILE_WORKFLOW_TH.md` เป็นคู่มือประจำ เริ่มตอนจริงด้วย HANDOFF ส่วนตัวของตอนนั้น
 
 ข้อความสำหรับเริ่ม task บนมือถือ:
 
-> ใช้ repository artmath-cloud และ branch ที่มี AGENTS.md อ่านคำสั่งหลัก สเปก และคู่มือมือถือ ตรวจ environment ด้วย setup_cloud.sh --check ถ้าขาด dependency ให้รัน setup จากนั้นทดสอบสื่อจำลองก่อนรับงานจริง สรุป commit ผลตรวจ และจุดที่ยังต้องตั้งค่า ไม่ใช้ไฟล์จากคอมเครื่องเดิม
+> ใช้ repository mrkanchanawat-cmyk/artmath-cloud บน Codex Cloud เลือก feat/mobile-cloud-foundation หาก PR ยังไม่ merge หรือ main หลัง merge อ่าน AGENTS.md สเปก และคู่มือมือถือ ตรวจ environment ด้วย setup_cloud.sh --check ถ้าขาด dependency ให้รัน setup จากนั้นทดสอบสื่อจำลองก่อนรับงานจริง สรุป commit ผลตรวจ และจุดที่ยังต้องตั้งค่า ไม่ใช้ไฟล์จากคอมเครื่องเดิม
+
+หากไม่พบ branch งาน ให้ตรวจสิทธิ์และสถานะ push/PR บน GitHub ก่อน ดู [สถานะการย้ายและการใช้ Git bundle](docs/SOURCE_AND_STATUS_TH.md) สำหรับการกู้คืนชุดส่งต่อ ไม่ force-push ทับประวัติที่มีอยู่
 
 ไฟล์วัตถุดิบและผลลัพธ์จริงเก็บใน Drive ตามเดิม การเชื่อมรับ–ส่ง Drive อัตโนมัติยังเป็นขั้นถัดไป

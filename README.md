@@ -6,7 +6,7 @@ Repository นี้เก็บเฉพาะโค้ด คู่มือ �
 
 ## ใช้งานจากมือถือ / Codex Cloud
 
-หากเปิดจากชุด ZIP ใน Drive ให้เริ่มที่ [START_MOBILE_TH.md](START_MOBILE_TH.md) เพื่อสร้าง repository ปลายทาง ดู [สถานะการย้ายและการใช้ Git bundle](docs/SOURCE_AND_STATUS_TH.md) ก่อนเลือก environment
+Repository ปลายทางคือ [mrkanchanawat-cmyk/artmath-cloud](https://github.com/mrkanchanawat-cmyk/artmath-cloud) เริ่มที่ [START_MOBILE_TH.md](START_MOBILE_TH.md) เพื่อเลือก environment และ branch: ใช้ `feat/mobile-cloud-foundation` ระหว่างรอ PR merge และ `main` หลัง merge หากเปิดจากชุด ZIP ใน Drive ให้ดู [สถานะการย้ายและการใช้ Git bundle](docs/SOURCE_AND_STATUS_TH.md) และตรวจ commit เทียบ GitHub ก่อนใช้งาน
 
 เริ่มจาก [คู่มือมือถือ](docs/MOBILE_WORKFLOW_TH.md) และให้ Codex อ่าน [AGENTS.md](AGENTS.md) ทุกงาน สเปกปัจจุบันอยู่ใน [ARTMATH_SPEC_TH.md](docs/ARTMATH_SPEC_TH.md) และใช้ [แม่แบบส่งต่องาน](templates/HANDOFF_TH.md) สำหรับสถานะตอนที่เก็บส่วนตัว
 

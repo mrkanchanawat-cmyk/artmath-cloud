@@ -2,17 +2,19 @@
 
 มือถือเป็นหน้าจอสั่งงานและตรวจผล ส่วนการอ่านไฟล์ ตรวจไทม์ไลน์ และเรนเดอร์ทำบนเครื่องคลาวด์ ไม่ต้องเปิดคอมเครื่องเดิม คำสั่งด้านล่างให้ Codex รันบนคลาวด์ ไม่ต้องติดตั้ง Python บนมือถือ
 
-ก่อนเริ่ม: repository ใหม่ยังรอสร้างและเชื่อมสิทธิ์ ดู [เริ่มจากชุดส่งต่อ](../START_MOBILE_TH.md) และ [สถานะ/วิธีนำ Git bundle เข้า repository](SOURCE_AND_STATUS_TH.md) เมื่อมีปลายทางแล้วจึงทำขั้นตอนด้านล่าง
+Repository ปลายทางคือ [mrkanchanawat-cmyk/artmath-cloud](https://github.com/mrkanchanawat-cmyk/artmath-cloud) ดู [คู่มือเริ่มงาน](../START_MOBILE_TH.md) และ [สถานะ/วิธีนำ Git bundle เข้า repository](SOURCE_AND_STATUS_TH.md) หากเริ่มจากชุดส่งต่อใน Drive ให้ตรวจ branch และ commit เทียบ GitHub ก่อนใช้
+
+ขณะตรวจล่าสุด repository เป็น Public และยังว่าง การ push ถูกปฏิเสธเพราะบัญชีที่เชื่อมอยู่ไม่มีสิทธิ์ Write ดู [สถานะและวิธีแก้สิทธิ์](SOURCE_AND_STATUS_TH.md) แล้วให้ผู้ช่วยส่ง branch งานขึ้นก่อนเริ่มขั้นตอนด้านล่าง
 
 ## เริ่มครั้งแรก
 
 1. เปิด Codex ด้วยบัญชีและ workspace ที่เชื่อม GitHub ของคุณ ตรวจว่ามีสิทธิ์ใช้ Codex Cloud
-2. เลือก environment ที่มี repository `<OWNER>/artmath-cloud` หากยังไม่มี ให้สร้างและเผยแพร่ผ่านเว็บหรือเดสก์ท็อปก่อน จากนั้นจึงเลือกใช้บนมือถือได้ ชื่อเมนูขึ้นกับรุ่นแอปและสิทธิ์บัญชี
+2. เลือก environment ที่มี repository `mrkanchanawat-cmyk/artmath-cloud` หากใช้ environment เดิม `maththewhat-hub1` ให้เพิ่มหรือเปลี่ยน repository ในการตั้งค่าก่อน และตรวจสิทธิ์ของการเชื่อม GitHub หากยังไม่มี environment ให้สร้างและเผยแพร่ผ่านเว็บหรือเดสก์ท็อปก่อน แล้วจึงเลือกใช้บนมือถือได้ ชื่อเมนูขึ้นกับรุ่นแอปและสิทธิ์บัญชี
 3. ใช้ branch ที่มีทั้งโค้ดและ `AGENTS.md` ฉบับนี้: ระหว่างรอ merge ใช้ `feat/mobile-cloud-foundation`; เมื่อ merge ครบแล้วใช้ `main` ตรวจด้วย `git branch --show-current` และ `git rev-parse HEAD` หาก environment เลือก branch ไม่ได้ ให้ Codex fetch/check out branch นี้ในงานที่ไม่มีการแก้ไขค้างอยู่
 4. ตั้งค่าเครื่องคลาวด์ครั้งแรกจากโฟลเดอร์ repository ด้วย `bash scripts/setup_cloud.sh` แล้วทดสอบ `bash scripts/setup_cloud.sh --smoke-test` จึงบันทึก/publish การตั้งค่า environment สำหรับงานถัดไปตามหน้าจอที่บัญชีรองรับ
 5. ทดสอบเริ่ม task ใหม่ ให้รัน `bash scripts/setup_cloud.sh --check` เพื่อยืนยันว่าสภาพแวดล้อมพร้อมจริงก่อนรับสื่อส่วนตัว
 
-Repository ใหม่นี้แยกจาก repo เดิม ใช้ main เป็นฐานเริ่มต้น และ feat/mobile-cloud-foundation เป็นชุดงานพร้อมส่ง PR เข้า main จนกว่า PR จะ merge ต้องเลือก branch งานเพื่อเห็นโค้ดและคู่มือนี้ แทน <OWNER> ด้วยบัญชีเจ้าของ repository ที่สร้างจริง
+Repository นี้แยกจาก repo เดิม ใช้ `main` เป็นฐานเริ่มต้น และ `feat/mobile-cloud-foundation` เป็นชุดงานสำหรับ PR เข้า `main` จนกว่า PR จะ merge ต้องเลือก branch งานเพื่อเห็นโค้ดและคู่มือนี้ ตรวจสถานะ PR บน GitHub ก่อนเลือก branch อย่าอนุมานว่า main มีไฟล์ใหม่เพียงเพราะ CI ผ่าน
 
 ดู [การตั้งค่าและใช้งาน Codex Cloud](https://help.openai.com/en/articles/20001545-using-codex-cloud) และ [คำสั่งโครงการ AGENTS.md](https://developers.openai.com/codex/guides/agents-md) สำหรับพฤติกรรมผลิตภัณฑ์ล่าสุด
 
@@ -20,7 +22,7 @@ Repository ใหม่นี้แยกจาก repo เดิม ใช้ m
 
 ### ตรวจว่าพร้อมเริ่มหรือไม่
 
-> ทำงานใน repository <OWNER>/artmath-cloud บน Codex Cloud อ่าน AGENTS.md และเอกสารที่อ้างถึง ตรวจ branch และ commit ปัจจุบัน ถ้าไม่มีชุดมือถือให้ตรวจ branch feat/mobile-cloud-foundation โดยรักษางานค้างไว้ รัน bash scripts/setup_cloud.sh --check ถ้ายังไม่ได้ติดตั้งให้รัน setup แล้วทดสอบ --smoke-test รายงานผลจริงและตำแหน่งไฟล์ ไม่ใช้ไฟล์จากคอมเครื่องเดิม
+> ทำงานใน repository mrkanchanawat-cmyk/artmath-cloud บน Codex Cloud อ่าน AGENTS.md และเอกสารที่อ้างถึง ตรวจ branch และ commit ปัจจุบัน ถ้าไม่มีชุดมือถือให้ตรวจ branch feat/mobile-cloud-foundation โดยรักษางานค้างไว้ รัน bash scripts/setup_cloud.sh --check ถ้ายังไม่ได้ติดตั้งให้รัน setup แล้วทดสอบ --smoke-test รายงานผลจริงและตำแหน่งไฟล์ ไม่ใช้ไฟล์จากคอมเครื่องเดิม
 
 ### รับช่วงงานตอนเดิม
 
@@ -44,7 +46,7 @@ Repository ใหม่นี้แยกจาก repo เดิม ใช้ m
 4. หลังตรวจงาน ส่งออก MP4, ASS/SRT, QA, project/timeline และ HANDOFF ไป Drive หรือเป็นไฟล์ดาวน์โหลดตามเครื่องมือที่มี พร้อมทดสอบว่าเปิดไฟล์ปลายทางได้
 5. หากยังส่งกลับไม่ได้ ให้สถานะ `awaiting_export` ระบุตำแหน่งชั่วคราวและไฟล์ที่ยังต้องเก็บ ห้ามอ้างว่า “บันทึกบน Drive แล้ว” จากการสร้างไฟล์ในคลาวด์เพียงอย่างเดียว
 
-การเพิ่มระบบ Drive อัตโนมัติเป็นงานขั้นถัดไป: ต้องเลือกวิธียืนยันตัวตนและทดสอบ download/upload/readback ใน environment จริง ไม่บันทึก token, ลิงก์ชั่วคราวที่มีสิทธิ์เข้าถึง หรือไฟล์ส่วนตัวลง repository สาธารณะ
+การเพิ่มระบบ Drive อัตโนมัติเป็นงานขั้นถัดไป: ต้องเลือกวิธียืนยันตัวตนและทดสอบ download/upload/readback ใน environment จริง ไม่บันทึก token, ลิงก์ชั่วคราวที่มีสิทธิ์เข้าถึง หรือไฟล์ส่วนตัวลง Git แม้ repository จะเป็นส่วนตัว
 
 ## การรักษาสถานะข้าม task
 
@@ -52,7 +54,7 @@ Repository ใหม่นี้แยกจาก repo เดิม ใช้ m
 - ก่อนย้าย task ให้ commit การแก้โค้ดและส่ง PR; เก็บวัตถุดิบ ผลลัพธ์ แผนตอน และ HANDOFF ไว้ใน Drive ส่วนตัว
 - task ใหม่มีพื้นที่ทำงานแยกกัน ไม่ถือว่าประวัติแชตหรือไฟล์ชั่วคราวของงานเดิมจะตามมาด้วย
 - ใช้ `templates/HANDOFF_TH.md` เป็นแม่แบบ และเก็บฉบับกรอกแล้วใน `.local/episodes/<episode-id>/HANDOFF_TH.md` ก่อนส่งกลับ Drive
-- repository สาธารณะเก็บเฉพาะโค้ด คำสั่งทั่วไป คู่มือ และตัวอย่างจำลอง แม้ไฟล์จะเป็น Markdown/JSON ก็อาจมีข้อมูลส่วนตัวได้ ห้ามนำชุด ArtMath เดิมขึ้น Git ทั้งโฟลเดอร์
+- repository เก็บเฉพาะโค้ด คำสั่งทั่วไป คู่มือ และตัวอย่างจำลอง แม้ไฟล์จะเป็น Markdown/JSON ก็อาจมีข้อมูลส่วนตัวได้ ห้ามนำชุด ArtMath เดิมขึ้น Git ทั้งโฟลเดอร์
 
 ## ตรวจและแก้ปัญหา
 
