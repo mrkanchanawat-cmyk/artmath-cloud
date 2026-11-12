@@ -31,6 +31,14 @@ Use paths relative to this repository/episode. Do not depend on shell activation
 5. Inspect the exported MP4 with FFprobe and view the subtitles/crop. Listen when audio review is required. Do not claim a check was done unless it was actually performed.
 6. Keep code changes separate from episode assets. Use synthetic fixtures for code tests.
 
+### Story, footage reuse, and audio gates
+
+- Build the story before choosing cut frequency: hook, who/where/goal, cause and consequence, escalation, then a supported payoff or cliffhanger. Document the visible action and narration supported by each chosen source interval. Introduce a new character with enough face/context footage to identify them before relying on reaction or detail shots.
+- Inspect source intervals in chronological order and explain any intentional change in narrative order. A shot-length warning is not an instruction to cut every 2.2 seconds. Hold until the relevant action or reaction is understandable; do not force speed changes to fill a target duration.
+- Reject reuse of the same resolved source file with overlap greater than 0.15 seconds. Crop, zoom, speed changes, cached shots, `allow_reuse`, and `--force` do not exempt a shot. Fix the shot plan before rendering. This timestamp gate does not detect identical pictures stored at different timestamps or in copied files; review those visually.
+- Listen to narration and music separately before mixing. Use clean narration and instrumental music; stop and repair or replace a contaminated input when unwanted dialogue is embedded in it. Ducking is not voice isolation. Do not treat the presence of an audio stream as proof of clean audio.
+- The ordinary mix uses BGM -29 LUFS / -6 dBTP before ducking with threshold 0.015, ratio 5, attack 5 ms, release 300 ms. `approved_audio` remains an already-mixed input and bypasses this mixer. Listen to the exported result before claiming audio QA passed.
+
 ## Storage and handoff
 
 - Code, generic instructions, and empty templates belong in Git. Keep footage, voices, episode scripts/timelines, filled HANDOFF files, credentials, and signed URLs outside Git even if this repository is private.
@@ -43,3 +51,4 @@ Use paths relative to this repository/episode. Do not depend on shell activation
 ## Delivery
 
 For software changes, provide the branch/PR, tests, and limitations. For episode work, provide actual artifact links and private HANDOFF. Do not publish videos, clone voices, or merge PRs unless covered by the user's request. No background work or ongoing synchronization is implied by these instructions.
+

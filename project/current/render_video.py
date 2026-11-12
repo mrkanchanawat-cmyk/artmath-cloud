@@ -128,6 +128,41 @@ def number(value):
     return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
 
 
+def validate_source_reuse(shots):
+    """Reject reused source time, including aliases of the same local file."""
+    if not isinstance(shots, list) or not shots:
+        return ['SCENE_REUSE: shots must be a non-empty array']
+    errors, used_intervals = [], []
+    for index, shot in enumerate(shots):
+        if not isinstance(shot, dict):
+            errors.append(f'SHOT {index+1}: expected an object')
+            continue
+        sid = shot.get('id', f'#{index+1}')
+        s_in, s_out = shot.get('source_in'), shot.get('source_out')
+        if not number(s_in) or not number(s_out) or s_in < 0 or s_out <= s_in:
+            errors.append(f'SHOT {sid}: invalid source interval')
+            continue
+        if 'source' in shot and (not isinstance(shot['source'], str) or not shot['source'].strip()):
+            errors.append(f'SHOT {sid}: invalid source path')
+            continue
+        try:
+            source = _shot_source(shot)
+        except (OSError, ValueError, RuntimeError) as exc:
+            errors.append(f'SHOT {sid}: cannot resolve source path: {exc}')
+            continue
+        for prev_id, prev_source, p_in, p_out in used_intervals:
+            overlap = min(s_out, p_out) - max(s_in, p_in)
+            if (source == prev_source and overlap > 0.15
+                    and not math.isclose(overlap, 0.15, rel_tol=0, abs_tol=1e-9)):
+                errors.append(
+                    f'SCENE_REUSE: SHOT {sid} ({s_in:.3f}s-{s_out:.3f}s) overlaps '
+                    f'SHOT {prev_id} ({p_in:.3f}s-{p_out:.3f}s) by {overlap:.3f}s '
+                    f'in {source.name}; maximum allowed is 0.15s'
+                )
+        used_intervals.append((sid, source, s_in, s_out))
+    return errors
+
+
 def normalize_timeline(doc):
     """Derive missing fields only; validation never silently repairs conflicting input."""
     if not isinstance(doc, dict):
@@ -239,6 +274,7 @@ def validate_timeline(doc, voice_path=None, approved_audio=None):
     if not isinstance(shots, list) or not shots:
         errors.append('TIMELINE: shots must be a non-empty array')
         return report()
+    errors.extend(validate_source_reuse(shots))
     ids, lengths, frame_sum, prev_end = set(), [], 0, 0.0
     for i, shot in enumerate(shots):
         label = f'SHOT {i+1}'
@@ -726,6 +762,9 @@ def auto_zip_if_over_limit(file_path, max_mb=50.0, extra_files=None, force_zip=F
 
 
 def render(doc, reuse_shots=False, max_mb=50.0, force_zip=False):
+    reuse_errors = validate_source_reuse(doc.get('shots') if isinstance(doc, dict) else None)
+    if reuse_errors:
+        raise ValueError('\n'.join(reuse_errors))
     if reuse_shots:
         paths = [WORK / 'shots' / f'{s["id"]}.mp4' for s in doc['shots']]
         if not all(p.is_file() for p in paths):
@@ -737,7 +776,8 @@ def render(doc, reuse_shots=False, max_mb=50.0, force_zip=False):
     concat.write_text(''.join(f"file 'shots/{p.name}'\n" for p in paths), encoding='utf-8')
     total = doc['duration']
 
-    # NNNKx2 Audio Profile: Crisp front-and-center narration (-12.8 LUFS) + audible ducked BGM (-25 LUFS) -> Master -12.2 LUFS
+    # Narration (-12.8 LUFS) + ducked BGM (-29 LUFS) -> Master -12.2 LUFS.
+    # Ducking does not remove dialogue already embedded in either input track.
     # Note: Silence removal should be performed BEFORE caption timing via `dm_project.py trim-silence`.
     trim_silence = bool(doc.get('trim_voice_silences', False))
     sil_filter = 'silenceremove=stop_periods=-1:stop_duration=0.18:stop_threshold=-38dB:stop_silence=0.05,' if trim_silence else ''
@@ -745,8 +785,8 @@ def render(doc, reuse_shots=False, max_mb=50.0, force_zip=False):
     if has_music:
         af = (
             f'[0:a]highpass=f=80,{sil_filter}loudnorm=I=-12.8:TP=-0.8:LRA=6,apad,atrim=0:{total},asplit[voice][side];'
-            f'[1:a]atrim=0:{total},asetpts=PTS-STARTPTS,loudnorm=I=-25.0:TP=-4.0:LRA=6,afade=t=in:st=0:d=0.35,afade=t=out:st={max(0, total-0.9)}:d=0.9[music];'
-            '[music][side]sidechaincompress=threshold=0.022:ratio=3.0:attack=15:release=220[ducked];'
+            f'[1:a]atrim=0:{total},asetpts=PTS-STARTPTS,loudnorm=I=-29.0:TP=-6.0:LRA=6,afade=t=in:st=0:d=0.35,afade=t=out:st={max(0, total-0.9)}:d=0.9[music];'
+            '[music][side]sidechaincompress=threshold=0.015:ratio=5.0:attack=5:release=300[ducked];'
             '[voice][ducked]amix=inputs=2:normalize=0:duration=first,loudnorm=I=-12.2:TP=-0.5:LRA=5[out]'
         )
         # -stream_loop -1: a BGM shorter than the clip loops instead of leaving a silent tail
@@ -886,3 +926,4 @@ def main(argv=None):
 
 if __name__ == '__main__':
     raise SystemExit(main())
+
